@@ -7,6 +7,15 @@ module.exports = {
 		{
 			fs.mkdirSync('.' + configuration.targetImagesDirectory);
 		}
+	},
+
+	deleteAllImages :function(){
+		var directory = '.' + configuration.targetImagesDirectory;
+		fs.readdirSync(directory).forEach(function(fileName) {
+			var file = directory + fileName;
+	        console.log('deleting:' + file);
+            fs.unlinkSync(file);
+	    });
 	}
 
 }

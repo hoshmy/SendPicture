@@ -5,6 +5,7 @@ var app = require('../app');
 app.enable('trust proxy');
 var fs = require('fs');
 var configuration = require('./configuration');
+var utilities = require('./utilities');
 
 
 /**maintain storage*/
@@ -37,6 +38,14 @@ app.get('/a',function(req,res,next){
 	res.end();
 });
 
+app .get('/deleteAllImages', function(req,res,next){
+	utilities.deleteAllImages();
+	imageCounter = 1;
+	storage.setItem(keyLastSavedImageCount,imageCounter);	
+	res.write('All files were deleted!');
+	res.end();
+});
+
 
 try{
 app.post('/upload', function(req, res, next) {
@@ -65,8 +74,17 @@ app.post('/upload', function(req, res, next) {
         }
         else
         {
-        	res.send('File uploaded to: ' + target_path + ' - ' + req.files.upload.size + ' bytes');
-        	console.log('pic saved to: '+ target_path);
+        	var savedImageIndex = imageCounter-1;
+        	var redirectTo = 'http://' + req.headers.host + configuration.targetImagesDirectory + savedImageIndex.toString() + '.jpg';
+//        	req.headers.host
+        	console.log('redirect to: ' + redirectTo);
+        	res.writeHead(301,
+        			  {Location: redirectTo}
+			);
+			res.end();
+	
+//        	res.send('File uploaded to: ' + target_path + ' - ' + req.files.upload.size + ' bytes');
+//        	console.log('pic saved to: '+ target_path);
         // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
 //        	fs.unlink(tmp_path, function() {
 //	        	if (err){
