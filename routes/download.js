@@ -9,7 +9,7 @@ var filesDeletionQueue = [];
 try{
 app.get('/download', function(req, res){
 	
-	var directory = path.join(__dirname, '\..\\',configuration.targetImagesDirectory);
+	var directory = path.join(__dirname, '/../',configuration.targetImagesDirectory);
 	fs.readdir(directory,function(err, files){
 		if(err)
 		{
