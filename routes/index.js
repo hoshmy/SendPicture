@@ -9,7 +9,7 @@ exports.index = function(req, res){
 	var body = "<html>\n"+
     "<head>\n"+
      "\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />\n"+
-     "\t<title>Welcome to the nodejs tutorial</title>\n"+
+     "\t<title>Send A Pic</title>\n"+
      "</head>\n"+
      "<body>\n"+
      "\t<form action=\"/upload\" method=\"post\" enctype=\"multipart/form-data\">\n" +

@@ -46,10 +46,10 @@ app .get('/deleteAllImages', function(req,res,next){
 	res.end();
 });
 
-
 try{
 app.post('/upload', function(req, res, next) {
 	console.log('Received starting');
+	console.log('Header:\n' + JSON.stringify(req.params));
 	console.log('JSON:' + JSON.stringify(req.files));
     console.log('body: ' + req.body);
     console.log('files: ' + req.files);
@@ -75,13 +75,14 @@ app.post('/upload', function(req, res, next) {
         else
         {
         	var savedImageIndex = imageCounter-1;
-        	var redirectTo = 'http://' + req.headers.host + configuration.targetImagesDirectory + savedImageIndex.toString() + '.jpg';
+//        	var redirectTo = 'http://' + req.headers.host + configuration.targetImagesDirectory + savedImageIndex.toString() + '.jpg';
 //        	req.headers.host
-        	console.log('redirect to: ' + redirectTo);
-        	res.writeHead(301,
-        			  {Location: redirectTo}
-			);
-			res.end();
+//        	console.log('redirect to: ' + redirectTo);
+//        	res.writeHead(301,
+//        			  {Location: redirectTo}
+//			);
+        	res.send('File uploaded to: ' + target_path + ' - ' + req.files.upload.size + ' bytes');
+//			res.end();
 	
 //        	res.send('File uploaded to: ' + target_path + ' - ' + req.files.upload.size + ' bytes');
 //        	console.log('pic saved to: '+ target_path);
@@ -97,6 +98,7 @@ app.post('/upload', function(req, res, next) {
 ////	        		res.end();
 //	        	}	
 //        	});
+			
         }
             
     });
