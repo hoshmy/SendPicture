@@ -55,15 +55,22 @@ app.post('/ackImageDownload',function(req,res,next){
 		fs.unlink(file);
 		filesDeletionQueue.splice(isFileInDeletionQueue,1);
 		res.status(200);
-		res.end();
+		res.end('File ' + fileForDeletion + ' was deleted');
 	}
 	else
 	{
 		res.status(404);
 		res.end();
 	}
-	
 });
+
+app.get('/resetDeleteQueue',function(req,res,next){
+	filesDeletionQueue = [];
+	res.status(200);
+	res.end('Queue deleted');
+});
+
+
 
 }catch(err)
 {
