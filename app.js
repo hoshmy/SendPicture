@@ -27,10 +27,10 @@ app.use(app.router);
 app.use(configuration.targetImagesDirectory, express.static(__dirname + configuration.targetImagesDirectory));
 
 // development only
-//if ('development' == app.get('env')) {
+if ('development' == app.get('env')) {
   app.use(express.errorHandler());
   app.use(express.logger('dev'));
-//}
+}
 
 
 utilities.initFileSystem();

@@ -15,7 +15,7 @@ app.get('/download', function(req, res){
 		{
 			console.log('Error occured while reading dir:\n' + err);
 			res.writeHead(200, {'Content-Type': 'text/plain' });
-		    res.end('Error reading directory \n');
+		    res.end('Error reading directory' + err + '\n');
 		}
 		else
 		{
