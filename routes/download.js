@@ -20,20 +20,25 @@ app.get('/download', function(req, res){
 		else
 		{
 			var fileIndex = 0;
+			var isAnyFileDownloaded = false;
 			for(fileIndex=0; fileIndex<files.length;++fileIndex)
 			{
 				if(-1 == filesDeletionQueue.indexOf(files[fileIndex]))
 				{
-					var file = directory + files[fileIndex];
+					var fileName = files[fileIndex];
+					var file = directory + fileName;
 					console.log('downloading file: ' + file);
-					res.download(file,files[fileIndex]);
-					filesDeletionQueue.push(files[fileIndex]);
+					filesDeletionQueue.push(fileName);
 					isAnyFileDownloaded = true;
-					break;
+					
+					res.download(file,fileName);
+
+					//break the loop
+					fileIndex = files.length;
 				}
 			}
 			
-			if(fileIndex === files.length)
+			if(false === isAnyFileDownloaded)
 			{/*If no file was downloaded then the connection should be */
 				res.writeHead(200, {'Content-Type': 'text/plain' });
 			    res.end('No Files');
